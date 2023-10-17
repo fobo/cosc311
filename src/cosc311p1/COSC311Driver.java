@@ -42,6 +42,10 @@ import java.util.*;
 import cosc311p1.Project.DataBase;
 import cosc311p1.Project.DataBaseRec;
 
+//Kevin Diehr
+//E01019091        
+//COSC 311- Fall 2023
+//Program #1
 public class COSC311Driver
 {
 

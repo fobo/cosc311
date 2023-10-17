@@ -3,52 +3,68 @@ package cosc311p1;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class Project {
+//Kevin Diehr
+//E01019091        
+//COSC 311- Fall 2023
+//Program #1
+
+public class Project 
+{
 
 	// This is one individual record of data, or one "row" of data
-	public static class DataBaseRec {
+	public static class DataBaseRec 
+	{
 		private String Fname;
 		private String Lname;
 		private String ID; // Expect ID to be 5 characters only.
 
 		// Constructor
-		public DataBaseRec(String fname, String lname, String id) {
+		public DataBaseRec(String fname, String lname, String id) 
+		{
 			Fname = fname;
 			Lname = lname;
 			ID = id;
 		}
 
 		// Default Constructor
-		public DataBaseRec() {
+		public DataBaseRec() 
+		{
 
 		}
 
 		// Others
-		public String getFname() {
+		public String getFname() 
+		{
 			return Fname;
 		}
 
-		public void setFname(String fname) {
+		public void setFname(String fname) 
+		{
 			Fname = fname;
 		}
 
-		public String getLname() {
+		public String getLname() 
+		{
 			return Lname;
 		}
 
-		public void setLname(String lname) {
+		public void setLname(String lname) 
+		{
 			Lname = lname;
 		}
 
-		public String getID() {
+		public String getID() 
+		{
 			return ID;
 		}
 
-		public void setID(String id) {
+		public void setID(String id) 
+		{
 			ID = id;
 		}
 
-		public void setData(String fname, String lname, String id) {
+		public void setData(String fname, String lname, String id) 
+		{
 			Fname = fname;
 			Lname = lname;
 			ID = id;
@@ -56,18 +72,21 @@ public class Project {
 
 		// toString
 		@Override
-		public String toString() {
+		public String toString() 
+		{
 			return ID + " " + Fname + " " + Lname;
 
 		}
 
 	}
 
-	public static class DataBase {
+	public static class DataBase 
+	{
 		private DataBaseArray myDB;
 		private IndexArray ID, First, Last;
 
-		public DataBase() {
+		public DataBase() 
+		{
 			myDB = new DataBaseArray(100);
 			ID = new IndexArray(100);
 			First = new IndexArray(100);
@@ -78,17 +97,19 @@ public class Project {
 								// position is to insert data
 
 		// Insert method
-		public void insertRecord(DataBaseRec record) {
-
+		public void insertRecord(DataBaseRec record) 
+		{
 
 			// Check to see if ID already exists in the ordered array
-			if(findRecord(record.getID()) == -1) {
+			if (findRecord(record.getID()) == -1) 
+			{
 				DataBaseRec recordCopy = new DataBaseRec(record.getFname(), record.getLname(), record.getID());
 
 				// Create an IndexRec object for the record with ID, First Name, and Last Name
 				IndexRecArray idRec = new IndexRecArray(recordCopy.getID(), nextDBRec);
 				IndexRecArray firstRec = new IndexRecArray(recordCopy.getFname(), nextDBRec);
 				IndexRecArray lastRec = new IndexRecArray(recordCopy.getLname(), nextDBRec);
+				
 				// Insert the IndexRec objects into the respective Index arrays
 				ID.insert(idRec);
 				First.insert(firstRec);
@@ -99,24 +120,28 @@ public class Project {
 
 				// Increment nextDBRec to track the next empty position
 				nextDBRec++;
-			}else {
+			} else 
+			{
 				System.out.println("Record with ID " + record.getID() + " already exists.");
 			}
 
-
 		}
 
+		//Builds the string for outputting data
 		@Override
-		public String toString() {
+		public String toString() 
+		{
 			StringBuilder stringBuilder = new StringBuilder();
-			for (int i = 0; i < nextDBRec; i++) {
+			for (int i = 0; i < nextDBRec; i++) 
+			{
 				stringBuilder.append("  ").append(myDB.dataBaseRecArray[i]).append("\n");
 			}
 			return stringBuilder.toString();
 		}
+		
 		// Modular List Method(s)
-
-		public void addIt() {
+		public void addIt() 
+		{
 			String input;
 			DataBaseRec dbr = new DataBaseRec();
 			Scanner scan = new Scanner(System.in);
@@ -124,13 +149,15 @@ public class Project {
 			System.out.print("Enter First Name Last Name ID (separated by spaces): ");
 			input = scan.nextLine();
 
-			String[] data = input.split(" ");
+			String[] data = input.split(" "); // Space separated values are stored into a String array
 
-			if (data.length == 3) {
+			if (data.length == 3) 
+			{
 				dbr.setData(data[0], data[1], data[2]);
 				insertRecord(dbr);
 				System.out.println("Record added successfully.");
-			} else {
+			} else 
+			{
 				System.out.println("Invalid input. Please provide First Name, Last Name, and ID separated by spaces.");
 			}
 			System.out.println("===Press enter to continue===");
@@ -138,21 +165,24 @@ public class Project {
 
 		}
 
-		public void deleteIt() {
+		public void deleteIt() 
+		{
 			Scanner findID = new Scanner(System.in);
 			String input;
 			System.out.print("Enter the ID of the student you wish to remove: ");
 			input = findID.nextLine();
 			int where = findRecord(input);
+			
 			// Delete the found record
-			if (where != -1) {
-
+			if (where != -1) 
+			{
 				System.out.println("Record with ID " + myDB.dataBaseRecArray[where] + " has been deleted.");
 				ID.deleteIndexRecord(where);
 				First.deleteIndexRecord(where);
 				Last.deleteIndexRecord(where);
 
-			} else {
+			} else 
+			{
 				System.out.println("Record cannot be found.");
 			}
 
@@ -160,26 +190,27 @@ public class Project {
 
 		// General binary search to find records. Is used for delete, find, and
 		// duplicates searches.
-		public int findRecord(String key) {
+		public int findRecord(String key) 
+		{
 
 			// Binary search
 			int left = 0;
 			int right = ID.getSize() - 1;
 
-			while (left <= right) {
-				
+			while (left <= right) 
+			{
+
 				int mid = left + (right - left) / 2;
-				System.out.println("Current mid: " + mid + " | " + "Value at mid: " + ID.indexRecArray[mid].key);
 				int comparison = ID.indexRecArray[mid].key.compareTo(key);
-				if (comparison == 0) {
-					// Found the record with the target ID
-					System.out.println("Found location! " + ID.indexRecArray[mid].where + " | Expected value: " + key);
+				if (comparison == 0) 
+				{
 					return ID.indexRecArray[mid].where;
-					//return Integer.valueOf(myDB.dataBaseRecArray[ID.indexRecArray[mid].where].getID());
-				} else if (comparison < 0) {
+				} else if (comparison < 0) 
+				{
 					// The target ID is in the right half of the current range
 					left = mid + 1;
-				} else {
+				} else 
+				{
 					// The target ID is in the left half of the current range
 					right = mid - 1;
 				}
@@ -189,7 +220,8 @@ public class Project {
 			return -1;
 		}
 
-		public void findIt() {
+		public void findIt() 
+		{
 
 			String input;
 
@@ -197,9 +229,11 @@ public class Project {
 			System.out.print("Enter the ID of the student you wish to find: ");
 			input = findID.nextLine();
 			int where = findRecord(input);
-			if (where == -1) {
+			if (where == -1) 
+			{
 				System.out.println("Record with ID " + input + " not found.");
-			} else {
+			} else 
+			{
 				System.out.println("Record found: " + myDB.dataBaseRecArray[where]);
 			}
 			System.out.println("===Press enter to continue===");
@@ -207,61 +241,76 @@ public class Project {
 
 		}
 
-		public void listByField(String field, boolean ascending) {
+		public void listByField(String field, boolean ascending) 
+		{
 			IndexArray selectedArray;
 
-			if (field.equals("ID")) {
+			if (field.equals("ID")) 
+			{
 				selectedArray = ID;
-			} else if (field.equals("First")) {
+			} else if (field.equals("First")) 
+			{
 				selectedArray = First;
-			} else if (field.equals("Last")) {
+			} else if (field.equals("Last")) 
+			{
 				selectedArray = Last;
-			} else {
+			} else 
+			{
 				throw new IllegalArgumentException("Invalid field name");
 			}
 
 			selectedArray.iteratorInitFront(); // Initialize the selected array
 
-			if (!ascending) {
+			if (!ascending) 
+			{
 				selectedArray.iteratorInitBack(); // Initialize for descending order
 			}
 
-			while (selectedArray.hasNext()) {
+			// Selects which direction the iterator will flow
+			while (selectedArray.hasNext()) 
+			{
 				int where = ascending ? selectedArray.getNext() : selectedArray.getPrevious();
 				System.out.println(myDB.dataBaseRecArray[where].toString());
 			}
 
 		}
 
-		public void ListByIDAscending() {
+		public void ListByIDAscending() 
+		{
 			listByField("ID", true);
 		}
 
-		public void ListByFirstAscending() {
+		public void ListByFirstAscending() 
+		{
 			listByField("First", true);
 		}
 
-		public void ListByLastAscending() {
+		public void ListByLastAscending() 
+		{
 			listByField("Last", true);
 
 		}
 
-		public void ListByIDDescending() {
+		public void ListByIDDescending() 
+		{
 			listByField("ID", false);
 
 		}
 
-		public void ListByFirstDescending() {
+		public void ListByFirstDescending() 
+		{
 			listByField("First", false);
 		}
 
-		public void ListByLastDescending() {
+		public void ListByLastDescending() 
+		{
 			listByField("Last", false);
 		}
 	}
 
 	// This is the "primary" array, used to store the complete set of records
-	public static class DataBaseArray {
+	public static class DataBaseArray 
+	{
 		private DataBaseRec[] dataBaseRecArray;
 		private int size;
 
@@ -269,12 +318,14 @@ public class Project {
 			return size;
 		}
 
-		public void setSize(int size) {
+		public void setSize(int size) 
+		{
 			this.size = size;
 		}
 
 		// Constructor to set the size of our "primary" array
-		public DataBaseArray(int sz) {
+		public DataBaseArray(int sz) 
+		{
 			dataBaseRecArray = new DataBaseRec[sz];
 			size = 0;
 		}
@@ -282,15 +333,18 @@ public class Project {
 	}
 
 	// This is the basic class where all of the individual index records
-	public static class IndexArray {
+	public static class IndexArray 
+	{
 		private IndexRecArray[] indexRecArray;
 		private int size;
 		private int iterator;
 		private boolean ascending;
 
-		public void insert(IndexRecArray indexRecord) { // Insertion loop
+		public void insert(IndexRecArray indexRecord) // Insertion loop
+		{ 
 			int j;
-			for (j = size - 1; j >= 0; j--) {
+			for (j = size - 1; j >= 0; j--) 
+			{
 				if ((indexRecArray[j].compareTo(indexRecord)) < 0)
 					break;
 				indexRecArray[j + 1] = indexRecArray[j];
@@ -299,64 +353,77 @@ public class Project {
 			size++;
 		}
 
-		public void display() {
+		public void display() 
+		{
 			int j;
 			for (j = 0; j < size; j++)
 				System.out.println(indexRecArray[j]);
 		}
 
-		public int getSize() {
+		public int getSize() 
+		{
 			return size;
 		}
 
-		public void setSize(int size) {
+		public void setSize(int size) 
+		{
 			this.size = size;
 		}
 
-		public IndexArray(int sz) {
+		public IndexArray(int sz) 
+		{
 			indexRecArray = new IndexRecArray[sz];
 			size = 0;
 			iterator = 0;
 		}
 
 		// set the iterator to zero
-		void iteratorInitFront() {
+		void iteratorInitFront() 
+		{
 			ascending = true;
 			iterator = 0;
 		}
 
 		// set the iterator to the last element in the array
-		void iteratorInitBack() {
+		void iteratorInitBack() 
+		{
 			ascending = false;
 			iterator = size - 1;
 		}
 
 		// returns true if iterator<= current last index in the array, false otherwise.
-		boolean hasNext() {
+		boolean hasNext() 
+		{
 			return ascending ? iterator <= size - 1 : iterator >= 0; // can probably combine this with hasPrevious
 		}
 
 		// returns true if iterator>0 , false otherwise
-		boolean hasPrevious() {
+		boolean hasPrevious() 
+		{
 			return ascending ? iterator >= 0 : iterator <= size - 1;
 		}
 
 		// returns the where component of the IndexRecord referenced by iterator and
 		// then increments the iterator
-		public int getNext() {
-			if (ascending) {
+		public int getNext() 
+		{
+			if (ascending) 
+			{
 				int where = indexRecArray[iterator].where;
 				iterator++;
 				return where;
-			} else {
+			} else 
+			{
 				throw new NoSuchElementException("No more elements in the reverse iteration.");
 			}
 		}
 
 		// returns the where component of the IndexRecord referenced by iterator and
 		// then decrements the iterator
-		public int getPrevious() {
-			if (!ascending) {
+		public int getPrevious() 
+		{
+			if (!ascending) 
+			{
 				int where = indexRecArray[iterator].where;
 				iterator--;
 				return where;
@@ -365,46 +432,52 @@ public class Project {
 			}
 		}
 
-		private void deleteIndexRecord(int where) {
-			// System.out.println("delete record where: " + where);
+		private void deleteIndexRecord(int where) 
+		{
+
 			// Iterate through the index array to find the record with the given key
 			int indexToRemove = -1;
-			for (int i = 0; i < size; i++) {
-				if (indexRecArray[i].where == where) {
+			for (int i = 0; i < size; i++) 
+			{
+				if (indexRecArray[i].where == where) 
+				{
 					indexToRemove = i;
 					break;
 				}
 
 			}
 			if (indexToRemove != -1) {
-
-				for (int i = indexToRemove; i < size - 1; i++) {
+				for (int i = indexToRemove; i < size - 1; i++) 
+				{
 					indexRecArray[i] = indexRecArray[i + 1];
 				}
 				indexRecArray[size - 1] = null;
 				size--;
-				// System.out.println("Size after: " + size);
 			}
 		}
 
 	}
 
 	// Where the sorted data sits
-	public static class IndexRecArray {
+	public static class IndexRecArray 
+	{
 		private String key;
 		private int where;
 
-		public IndexRecArray(String key, int where) {
+		public IndexRecArray(String key, int where) 
+		{
 			this.key = key;
 			this.where = where;
 		}
 
 		@Override
-		public String toString() {
+		public String toString() 
+		{
 			return key + " " + where;
 		}
 
-		public int compareTo(IndexRecArray otherKey) {
+		public int compareTo(IndexRecArray otherKey) 
+		{
 			return this.key.compareTo(otherKey.key);
 		}
 
