@@ -137,7 +137,11 @@ public class Project {
 
 
 		public void deleteIt() {
-		    int where = findIt();
+			Scanner findID = new Scanner(System.in);
+		    String input;
+		    System.out.print("Enter the ID of the student you wish to remove: ");
+		    input = findID.nextLine();
+		    int where = findRecord(input);
 
 		 // Delete the found record
 		    if (where != -1) {
@@ -150,16 +154,8 @@ public class Project {
 		}
 
 
-		public int findIt() {
-
-		    String input;
-		    
-		    Scanner findID = new Scanner(System.in);
-		    //We combine findIt and deleteIt to reduce redundant code.
-		    System.out.print("Enter the ID of the student you wish to find/remove: ");
-		    input = findID.nextLine();
-
-		    
+		//General binary search to find records. Is used for delete, find, and duplicates searches.
+		public int findRecord(String key) {
 			
 			// Binary search
 		    int left = 0;
@@ -167,15 +163,11 @@ public class Project {
 
 		    while (left <= right) {
 		        int mid = left + (right - left) / 2;
-		        int comparison = myDB.dataBaseRecArray[ID.indexRecArray[mid].where].getID().compareTo(input);
+		        int comparison = myDB.dataBaseRecArray[ID.indexRecArray[mid].where].getID().compareTo(key);
 
 		        if (comparison == 0) {
-		            // Found the record with the target ID
-		            System.out.println("Record found: " + myDB.dataBaseRecArray[ID.indexRecArray[mid].where]);
-		            System.out.println("===Press enter to continue===");
-				    findID.nextLine();
-				    
-		            return ID.indexRecArray[mid].where;
+		            // Found the record with the target ID			    
+		            return mid;
 		        } else if (comparison < 0) {
 		            // The target ID is in the right half of the current range
 		            left = mid + 1;
@@ -185,12 +177,57 @@ public class Project {
 		        }
 		        
 		    }
+		    //default bad case, this means no record is found
+		    return -1;
+		}
+		public void findIt() {
 
-		    // If the loop completes without finding the record, it's not in the database
-		    System.out.println("Record with ID " + input + " not found.");
+		    String input;
+		    
+		    Scanner findID = new Scanner(System.in);
+		    //We combine findIt and deleteIt to reduce redundant code.
+		    System.out.print("Enter the ID of the student you wish to find: ");
+		    input = findID.nextLine();
+		    int where = findRecord(input);
+		    if(where == -1) {
+		    	System.out.println("Record with ID " + input + " not found.");
+		    }else {
+		    	System.out.println("Record found: " + myDB.dataBaseRecArray[ID.indexRecArray[where].where]);
+		    }
 		    System.out.println("===Press enter to continue===");
 		    findID.nextLine();
-		    return -1; // TODO: record not found
+
+		    
+			
+//			// Binary search
+//		    int left = 0;
+//		    int right = ID.getSize() - 1;
+//
+//		    while (left <= right) {
+//		        int mid = left + (right - left) / 2;
+//		        int comparison = myDB.dataBaseRecArray[ID.indexRecArray[mid].where].getID().compareTo(input);
+//
+//		        if (comparison == 0) {
+//		            // Found the record with the target ID
+//		            System.out.println("Record found: " + myDB.dataBaseRecArray[ID.indexRecArray[mid].where]);
+//		            System.out.println("===Press enter to continue===");
+//				    findID.nextLine();
+//				    
+//		            return ID.indexRecArray[mid].where;
+//		        } else if (comparison < 0) {
+//		            // The target ID is in the right half of the current range
+//		            left = mid + 1;
+//		        } else {
+//		            // The target ID is in the left half of the current range
+//		            right = mid - 1;
+//		        }
+//		        
+//		    }
+
+		    // If the loop completes without finding the record, it's not in the database
+		    
+
+
 		}
 
 	
