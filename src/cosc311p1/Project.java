@@ -137,20 +137,15 @@ public class Project {
 
 
 		public void deleteIt() {
-//		    int recordPosition = findIt();
-//
-//		    if (recordPosition != -1) {
-//		        // Delete the found record
-//		        ID.deleteIndexRecord(id);
-//		        First.deleteIndexRecord(myDB.dataBaseRecArray[recordPosition].getFname());
-//		        Last.deleteIndexRecord(myDB.dataBaseRecArray[recordPosition].getLname());
-//		        
-//		       
-//
-//		        System.out.println("Record with ID " + id + " has been deleted.");
-//		    } else {
-//		        System.out.println("Record with ID " + id + " not found.");
-//		    }
+		    int where = findIt();
+
+		 // Delete the found record
+		    if (where != -1) {
+		        System.out.println("Record with ID " + myDB.dataBaseRecArray[where] + " has been deleted.");
+		        ID.deleteIndexRecord(where);
+		    } else {
+		        System.out.println("Record cannot be found.");
+		    }
 			
 		}
 
@@ -160,8 +155,8 @@ public class Project {
 		    String input;
 		    
 		    Scanner findID = new Scanner(System.in);
-
-		    System.out.print("Enter the ID of the student you wish to find: ");
+		    //We combine findIt and deleteIt to reduce redundant code.
+		    System.out.print("Enter the ID of the student you wish to find/remove: ");
 		    input = findID.nextLine();
 
 		    
@@ -363,18 +358,17 @@ public class Project {
 	            throw new NoSuchElementException("No more elements in the reverse iteration.");
 	        }
 	    }
-	    private void deleteIndexRecord(String key) {
+	    private void deleteIndexRecord(int where) {
 	        // Iterate through the index array to find the record with the given key
 	        int indexToRemove = -1;
 	        for (int i = 0; i < size; i++) {
-	            if (indexRecArray[i].key.equals(key)) {
+	            if (indexRecArray[i].where == where) {
 	                indexToRemove = i;
 	                break;
 	            }
 	        }
-
+	        // Remove the record from the index array
 	        if (indexToRemove != -1) {
-	            // Remove the record from the index array
 	            for (int i = indexToRemove; i < size - 1; i++) {
 	                indexRecArray[i] = indexRecArray[i + 1];
 	            }
