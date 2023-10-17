@@ -80,23 +80,29 @@ public class Project {
 		// Insert method
 		public void insertRecord(DataBaseRec record) {
 
-			DataBaseRec recordCopy = new DataBaseRec(record.getFname(), record.getLname(), record.getID());
 
-			// Create an IndexRec object for the record with ID, First Name, and Last Name
-			IndexRecArray idRec = new IndexRecArray(recordCopy.getID(), nextDBRec);
-			IndexRecArray firstRec = new IndexRecArray(recordCopy.getFname(), nextDBRec);
-			IndexRecArray lastRec = new IndexRecArray(recordCopy.getLname(), nextDBRec);
+			// Check to see if ID already exists in the ordered array
+			if(findRecord(record.getID()) == -1) {
+				DataBaseRec recordCopy = new DataBaseRec(record.getFname(), record.getLname(), record.getID());
 
-			// Insert the IndexRec objects into the respective Index arrays
-			ID.insert(idRec);
-			First.insert(firstRec);
-			Last.insert(lastRec);
+				// Create an IndexRec object for the record with ID, First Name, and Last Name
+				IndexRecArray idRec = new IndexRecArray(recordCopy.getID(), nextDBRec);
+				IndexRecArray firstRec = new IndexRecArray(recordCopy.getFname(), nextDBRec);
+				IndexRecArray lastRec = new IndexRecArray(recordCopy.getLname(), nextDBRec);
+				// Insert the IndexRec objects into the respective Index arrays
+				ID.insert(idRec);
+				First.insert(firstRec);
+				Last.insert(lastRec);
 
-			// Insert the record into the myDB array
-			myDB.dataBaseRecArray[nextDBRec] = recordCopy;
+				// Insert the record into the myDB array
+				myDB.dataBaseRecArray[nextDBRec] = recordCopy;
 
-			// Increment nextDBRec to track the next empty position
-			nextDBRec++;
+				// Increment nextDBRec to track the next empty position
+				nextDBRec++;
+			}else {
+				System.out.println("Record with ID " + record.getID() + " already exists.");
+			}
+
 
 		}
 
@@ -161,12 +167,15 @@ public class Project {
 			int right = ID.getSize() - 1;
 
 			while (left <= right) {
+				
 				int mid = left + (right - left) / 2;
-				int comparison = myDB.dataBaseRecArray[ID.indexRecArray[mid].where].getID().compareTo(key);
+				System.out.println("Current mid: " + mid + " | " + "Value at mid: " + ID.indexRecArray[mid].key);
+				int comparison = ID.indexRecArray[mid].key.compareTo(key);
 				if (comparison == 0) {
 					// Found the record with the target ID
-
-					return Integer.valueOf(myDB.dataBaseRecArray[ID.indexRecArray[mid].where].getID());
+					System.out.println("Found location! " + ID.indexRecArray[mid].where + " | Expected value: " + key);
+					return ID.indexRecArray[mid].where;
+					//return Integer.valueOf(myDB.dataBaseRecArray[ID.indexRecArray[mid].where].getID());
 				} else if (comparison < 0) {
 					// The target ID is in the right half of the current range
 					left = mid + 1;
@@ -191,7 +200,7 @@ public class Project {
 			if (where == -1) {
 				System.out.println("Record with ID " + input + " not found.");
 			} else {
-				System.out.println("Record found: " + myDB.dataBaseRecArray[ID.indexRecArray[where].where]);
+				System.out.println("Record found: " + myDB.dataBaseRecArray[where]);
 			}
 			System.out.println("===Press enter to continue===");
 			findID.nextLine();

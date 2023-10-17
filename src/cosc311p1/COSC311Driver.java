@@ -77,7 +77,6 @@ public class COSC311Driver
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        
         do
         {
             System.out.println(" 1 Add a new student");
