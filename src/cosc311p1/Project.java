@@ -142,9 +142,9 @@ public class Project {
 		    System.out.print("Enter the ID of the student you wish to remove: ");
 		    input = findID.nextLine();
 		    int where = findRecord(input);
-
 		 // Delete the found record
 		    if (where != -1) {
+		    	
 		        System.out.println("Record with ID " + myDB.dataBaseRecArray[where] + " has been deleted.");
 		        ID.deleteIndexRecord(where);
 		    } else {
@@ -164,10 +164,11 @@ public class Project {
 		    while (left <= right) {
 		        int mid = left + (right - left) / 2;
 		        int comparison = myDB.dataBaseRecArray[ID.indexRecArray[mid].where].getID().compareTo(key);
-
+		        System.out.println("Where = " + myDB.dataBaseRecArray[ID.indexRecArray[mid].where].getID() + " | Key = " + key);
 		        if (comparison == 0) {
-		            // Found the record with the target ID			    
-		            return mid;
+		            // Found the record with the target ID		
+		        	
+		            return Integer.valueOf(myDB.dataBaseRecArray[ID.indexRecArray[mid].where].getID());
 		        } else if (comparison < 0) {
 		            // The target ID is in the right half of the current range
 		            left = mid + 1;
@@ -396,6 +397,7 @@ public class Project {
 	        }
 	    }
 	    private void deleteIndexRecord(int where) {
+	    	System.out.println("delete record where: " + where);
 	        // Iterate through the index array to find the record with the given key
 	        int indexToRemove = -1;
 	        for (int i = 0; i < size; i++) {
@@ -403,14 +405,25 @@ public class Project {
 	                indexToRemove = i;
 	                break;
 	            }
+	            
 	        }
+	        System.out.println("index to remove: " + indexToRemove);
 	        // Remove the record from the index array
+	        //System.out.println(indexRecArray.toString());
 	        if (indexToRemove != -1) {
+	        	System.out.println("Size before: " + size);
+	        	System.out.println("Trying to remove: " + indexRecArray[indexToRemove].toString());
+	        	
 	            for (int i = indexToRemove; i < size - 1; i++) {
+	            	System.out.println("i: " + Integer.toString(i));
+	            	System.out.println("Record to overwrite: " + indexRecArray[i].toString());
+	            	System.out.println("Record being moved up: " + indexRecArray[i + 1].toString());
+	            	//System.out.println(String.valueOf(i) + " | " + indexRecArray[i].toString() + " | " + indexRecArray[i + 1].toString());
 	                indexRecArray[i] = indexRecArray[i + 1];
 	            }
 	            indexRecArray[size - 1] = null;
 	            size--;
+	            System.out.println("Size after: " + size);
 	        }
 	    }
 
