@@ -1,4 +1,4 @@
-package cosc311p1;
+package cosc311p2;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -45,7 +45,7 @@ import cosc311p1.Project.DataBaseRec;
 //Kevin Diehr
 //E01019091        
 //COSC 311- Fall 2023
-//Program #1 OPTION 2 - NO EXTRA CREDIT
+//Program #2 OPTION 2 - NO EXTRA CREDIT
 public class COSC311Driver
 {
 

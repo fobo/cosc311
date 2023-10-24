@@ -6,7 +6,7 @@ import java.util.Scanner;
 //Kevin Diehr
 //E01019091        
 //COSC 311- Fall 2023
-//Program #1
+//Program #1 OPTION 2 - NO EXTRA CREDIT
 
 public class Project 
 {
@@ -48,6 +48,9 @@ public class Project
 			return Lname;
 		}
 
+		
+		
+		
 		public void setLname(String lname) 
 		{
 			Lname = lname;
@@ -96,6 +99,9 @@ public class Project
 		private int nextDBRec; // This gets used to track where in the database array, the current empty
 								// position is to insert data
 
+		
+		
+		
 		// Insert method
 		public void insertRecord(DataBaseRec record) 
 		{
@@ -138,6 +144,15 @@ public class Project
 			}
 			return stringBuilder.toString();
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		// Modular List Method(s)
 		public void addIt() 
@@ -188,6 +203,9 @@ public class Project
 
 		}
 
+		
+		
+		
 		// General binary search to find records. Is used for delete, find, and
 		// duplicates searches.
 		public int findRecord(String key) 
@@ -291,6 +309,7 @@ public class Project
 
 		}
 
+		
 		public void ListByIDDescending() 
 		{
 			listByField("ID", false);
@@ -332,6 +351,18 @@ public class Project
 
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// This is the basic class where all of the individual index records
 	public static class IndexArray 
 	{
@@ -432,6 +463,10 @@ public class Project
 			}
 		}
 
+		
+		
+		
+		
 		private void deleteIndexRecord(int where) 
 		{
 
@@ -482,5 +517,4 @@ public class Project
 		}
 
 	}
-
 }
