@@ -80,31 +80,44 @@ public class DoublyLinkedList {
 
 
 	public Node deleteIndexRecord(int where) {
+	    // Check for an empty list
+	    if (head == null) {
+	        System.out.println("List is empty.");
+	        return null;
+	    }
+
 	    Node current = head; // start at the beginning
 
-	    while (current != null && current.data.compareTo(new IndexRecArray("", where)) != 0) {
+	    while (current != null && current.data.getWhere() != where) {
 	        current = current.next; // move to the next node
 	    }
 
-
 	    if (current == null) {
-	        return null; // didn't find it, check for null on delete method to report to user.
+	        System.out.println("Record with 'where' value " + where + " not found.");
+	        return null; // didn't find it, check for null on delete method to report to the user.
 	    }
 
 	    if (current == head) {
 	        head = current.next; // first item; update head
+	        if (head != null) {
+	            head.prev = null; // remove the previous reference
+	        }
 	    } else {
 	        current.prev.next = current.next; // not first; update previous node's next
 	    }
 
 	    if (current == tail) {
 	        tail = current.prev; // last item; update tail
+	        if (tail != null) {
+	            tail.next = null; // remove the next reference
+	        }
 	    } else {
 	        current.next.prev = current.prev; // not last; update next node's previous
 	    }
 
-	    return current; // return the deleted node to print to user.
+	    return current; // return the deleted node to print to the user.
 	}
+
 	
 	//Iterators
 	public Node iteratorInitHead() {

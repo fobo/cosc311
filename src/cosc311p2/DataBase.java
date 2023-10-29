@@ -144,7 +144,6 @@ public class DataBase {
 	        }
 	    } else { // Print list in reverse order!!
 	        Node current = selectedList.getTail();
-	        System.out.println(current.toString());
 	        while (current != null) {
 	            int where = current.data.getWhere();
 	            System.out.println(myDB.dataBaseRecArray[where].toString());
