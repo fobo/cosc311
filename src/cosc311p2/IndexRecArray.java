@@ -2,7 +2,11 @@ package cosc311p2;
 
 
 
-// Where the sorted data sits
+
+/*
+ * This is the "data" object that will sit inside of a specific node.
+ * 
+ */
 public class IndexRecArray 
 {
 	private String key;
