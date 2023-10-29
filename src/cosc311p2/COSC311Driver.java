@@ -39,8 +39,7 @@ COSC 311 - Fall 2023
 
 import java.util.*;
 
-import cosc311p1.Project.DataBase;
-import cosc311p1.Project.DataBaseRec;
+
 
 //Kevin Diehr
 //E01019091        
@@ -55,7 +54,7 @@ public class COSC311Driver
          * the following as a doubly linked list, as well as a tree.
          */ 
         
-     
+    System.out.println("Running prog2");
 	DataBase d=new DataBase();  
    	int response;
         Scanner keyboard=new Scanner(System.in);

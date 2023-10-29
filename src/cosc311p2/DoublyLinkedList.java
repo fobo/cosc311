@@ -22,6 +22,7 @@ public class DoublyLinkedList {
 	// insert first/last, delete first/last
 
 	// TODO: Add insert arbitrary position and delete where key
+	
 
 	public int findNode(String key) {
 	    Node current = head;
@@ -38,36 +39,45 @@ public class DoublyLinkedList {
 	}
 	
 	public void insert(IndexRecArray indexRecord) {
-		Node newNode = new Node(indexRecord);
+	    Node newNode = new Node(indexRecord);
 
-		// If the LinkedList is empty or the new node should be inserted at the
-		// beginning
-		if (head == null || indexRecord.compareTo(head.data) < 0) {
-			newNode.next = head;
-			newNode.prev = null;
-			if (head != null) {
-				head.prev = newNode;
-			}
-			head = newNode;
-			size++;
-			return;
-		}
+	    if (head == null || indexRecord.compareTo(head.data) < 0) {
+	        newNode.next = head;
+	        newNode.prev = null;
+	        if (head != null) {
+	            head.prev = newNode;
+	        }
+	        head = newNode;
 
-		// Find the position where the new node should be inserted
-		Node current = head;
-		while (current.next != null && indexRecord.compareTo(current.next.data) > 0) {
-			current = current.next;
-		}
+	        if (tail == null) {
+	            // If the list was empty, update the tail to the new node
+	            tail = newNode;
+	        }
 
-		// Insert the new node
-		newNode.next = current.next;
-		newNode.prev = current;
-		if (current.next != null) {
-			current.next.prev = newNode;
-		}
-		current.next = newNode;
-		size++;
+	        size++;
+	        return;
+	    }
+
+	    Node current = head;
+	    while (current.next != null && indexRecord.compareTo(current.next.data) > 0) {
+	        current = current.next;
+	    }
+
+	    newNode.next = current.next;
+	    newNode.prev = current;
+	    if (current.next != null) {
+	        current.next.prev = newNode;
+	    }
+	    current.next = newNode;
+
+	    if (newNode.next == null) {
+	        // If the new node is inserted at the end, update the tail to the new node
+	        tail = newNode;
+	    }
+
+	    size++;
 	}
+
 
 	public Node deleteIndexRecord(int where) {
 	    Node current = head; // start at the beginning
@@ -95,28 +105,50 @@ public class DoublyLinkedList {
 
 	    return current; // return the deleted node to print to user.
 	}
-
-
-	public void displayForward() {
-		System.out.print("List (first-->last): ");
-		Node current = head; // start at beginning
-		while (current != null) // until end of list,
-		{
-			current.displayNode(); // display data
-			current = current.next; // move to next link
-		}
-		System.out.println("");
+	
+	//Iterators
+	public Node iteratorInitHead() {
+		return head;
+	}
+	public Node iteratorInitTail() {
+		return tail;
+	}
+	public Node getHead() {
+		return head;
 	}
 
-	public void displayBackward() {
-		System.out.print("List (last-->first): ");
-		Node current = tail; // start at end
-		while (current != null) // until start of list,
-		{
-			current.displayNode(); // display data
-			current = current.prev; // move to previous link
-		}
-
-		System.out.println("");
+	public void setHead(Node head) {
+		this.head = head;
 	}
+
+	public Node getTail() {
+		return tail;
+	}
+
+	public void setTail(Node tail) {
+		this.tail = tail;
+	}
+
+	public boolean hasNext(Node currentNode) {
+	    return currentNode != null && currentNode.next != null;
+	}
+
+	public boolean hasPrev(Node currentNode) {
+	    return currentNode != null && currentNode.prev != null;
+	}
+
+    public Node getNext(Node currentNode) {
+        if (currentNode != null) {
+            return currentNode.next;
+        }
+        return null;
+    }
+
+    // Get the previous node relative to the current node
+    public Node getPrev(Node currentNode) {
+        if (currentNode != null) {
+            return currentNode.prev;
+        }
+        return null;
+    }
 }

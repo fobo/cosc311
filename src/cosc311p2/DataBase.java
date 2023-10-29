@@ -6,7 +6,7 @@ import cosc311p2.DoublyLinkedList;
 
 public class DataBase {
 	private DataBaseArray myDB;
-	DoublyLinkedList ID, First, Last; 
+	DoublyLinkedList ID, First, Last;
 
 	public DataBase() {
 		// TODO: Change ID, First, and Last to linked lists
@@ -41,6 +41,7 @@ public class DataBase {
 
 			// Increment nextDBRec to track the next empty position
 			nextDBRec++;
+			System.out.println("Record added successfully.");
 		} else {
 			System.out.println("Record with ID " + record.getID() + " already exists.");
 		}
@@ -59,6 +60,7 @@ public class DataBase {
 
 	// Modular List Method(s)
 	public void addIt() {
+
 		String input;
 		DataBaseRec dbr = new DataBaseRec();
 		Scanner scan = new Scanner(System.in);
@@ -71,7 +73,7 @@ public class DataBase {
 		if (data.length == 3) {
 			dbr.setData(data[0], data[1], data[2]);
 			insertRecord(dbr);
-			System.out.println("Record added successfully.");
+			
 		} else {
 			System.out.println("Invalid input. Please provide First Name, Last Name, and ID separated by spaces.");
 		}
@@ -87,7 +89,6 @@ public class DataBase {
 		input = findID.nextLine();
 		int where = findRecord(input, ID);
 
-		
 		// Delete the found record
 		if (where != -1) {
 			System.out.println("Record with ID " + myDB.dataBaseRecArray[where] + " has been deleted.");
@@ -101,13 +102,12 @@ public class DataBase {
 
 	}
 
-
 	// TODO: Change to linear search for linked lists.
 
-    public int findRecord(String key, DoublyLinkedList linkedList) {
-        int where = linkedList.findNode(key);
-        return where;
-    }
+	public int findRecord(String key, DoublyLinkedList linkedList) {
+		int where = linkedList.findNode(key);
+		return where;
+	}
 
 	public void findIt() {
 
@@ -135,13 +135,23 @@ public class DataBase {
 	        throw new IllegalArgumentException("Invalid field name");
 	    }
 
-	    if (ascending) {
-	        selectedList.displayForward();
-	    } else {
-	        selectedList.displayBackward();
+	    if (ascending) { // Print list in forwards order!!
+	        Node current = selectedList.getHead();
+	        while (current != null) {
+	            int where = current.data.getWhere();
+	            System.out.println(myDB.dataBaseRecArray[where].toString());
+	            current = current.next; // Move to the next node
+	        }
+	    } else { // Print list in reverse order!!
+	        Node current = selectedList.getTail();
+	        System.out.println(current.toString());
+	        while (current != null) {
+	            int where = current.data.getWhere();
+	            System.out.println(myDB.dataBaseRecArray[where].toString());
+	            current = current.prev; // Move to the previous node
+	        }
 	    }
 	}
-
 
 	public void ListByIDAscending() {
 		listByField("ID", true);
