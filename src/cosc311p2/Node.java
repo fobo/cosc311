@@ -14,7 +14,7 @@ public class Node {
 		this.next = null;
 	}
 
-	public void displayNode() // display this link
+	public void displayNode() // display this link, useful for test cases
 	{
 		System.out.println(data + "");
 	}

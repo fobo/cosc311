@@ -19,11 +19,9 @@ public class DoublyLinkedList {
 		return head == null;
 	}
 
-	// insert first/last, delete first/last
 
-	// TODO: Add insert arbitrary position and delete where key
-	
 
+	//Utilizes findRecord within DataBase class
 	public int findNode(String key) {
 	    Node current = head;
 

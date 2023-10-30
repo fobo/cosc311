@@ -2,14 +2,14 @@ package cosc311p2;
 
 import java.util.Map;
 import java.util.Scanner;
-import cosc311p2.DoublyLinkedList;
+
 
 public class DataBase {
 	private DataBaseArray myDB;
 	DoublyLinkedList ID, First, Last;
 
 	public DataBase() {
-		// TODO: Change ID, First, and Last to linked lists
+		
 		myDB = new DataBaseArray(100);
 		ID = new DoublyLinkedList();
 		First = new DoublyLinkedList();
@@ -31,7 +31,7 @@ public class DataBase {
 			IndexRecArray firstRec = new IndexRecArray(recordCopy.getFname(), nextDBRec);
 			IndexRecArray lastRec = new IndexRecArray(recordCopy.getLname(), nextDBRec);
 
-			// Insert the IndexRec objects into the respective Index arrays
+			// Insert the IndexRec objects into the respective Linked Lists
 			ID.insert(idRec);
 			First.insert(firstRec);
 			Last.insert(lastRec);
@@ -102,8 +102,8 @@ public class DataBase {
 
 	}
 
-	// TODO: Change to linear search for linked lists.
 
+	// Feed this the ID linked list, and the key location
 	public int findRecord(String key, DoublyLinkedList linkedList) {
 		int where = linkedList.findNode(key);
 		return where;
@@ -127,9 +127,10 @@ public class DataBase {
 
 	}
 
+	// Generalized print method for all lists
 	public void listByField(String field, boolean ascending) {
 	    Map<String, DoublyLinkedList> fieldToLinkedList = Map.of("ID", ID, "First", First, "Last", Last);
-
+	    //Usage of a Map allows easier key value pairing
 	    DoublyLinkedList selectedList = fieldToLinkedList.get(field);
 	    if (selectedList == null) {
 	        throw new IllegalArgumentException("Invalid field name");
@@ -152,6 +153,7 @@ public class DataBase {
 	    }
 	}
 
+	//Modular list methods
 	public void ListByIDAscending() {
 		listByField("ID", true);
 	}
