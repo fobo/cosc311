@@ -1,13 +1,17 @@
 package cosc311p2;
-
+//Kevin Diehr
+//E01019091        
+//COSC 311 - Fall 2023
+//Program #2
 //Node holds the object containing the relevant data, as well as pointers to the next/previous node.
-public class Node {
+public class Node 
+{
 
-	IndexRecArray data;
+	IndexRecord data;
 	Node prev;
 	Node next;
 
-	public Node(IndexRecArray data) // constructor
+	public Node(IndexRecord data) // constructor
 	{
 		this.data = data;
 		this.prev = null;

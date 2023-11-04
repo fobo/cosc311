@@ -1,4 +1,8 @@
 package cosc311p2;
+//Kevin Diehr
+//E01019091        
+//COSC 311 - Fall 2023
+//Program #2
 
 //This is one individual record of data, or one "row" of data
 	public class DataBaseRec 
@@ -37,9 +41,6 @@ package cosc311p2;
 			return Lname;
 		}
 
-		
-		
-		
 		public void setLname(String lname) 
 		{
 			Lname = lname;

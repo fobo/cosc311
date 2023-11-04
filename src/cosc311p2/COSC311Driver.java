@@ -43,8 +43,8 @@ import java.util.*;
 
 //Kevin Diehr
 //E01019091        
-//COSC 311- Fall 2023
-//Program #2 OPTION 2 - NO EXTRA CREDIT
+//COSC 311 - Fall 2023
+//Program #2
 public class COSC311Driver
 {
 

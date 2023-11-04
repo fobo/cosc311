@@ -1,4 +1,8 @@
 package cosc311p2;
+//Kevin Diehr
+//E01019091        
+//COSC 311 - Fall 2023
+//Program #2
 
 // This is the "primary" array, used to store the complete set of records
 public class DataBaseArray 
@@ -6,7 +10,8 @@ public class DataBaseArray
 	public DataBaseRec[] dataBaseRecArray;
 	private int size;
 
-	public int getSize() {
+	public int getSize() 
+	{
 		return size;
 	}
 
