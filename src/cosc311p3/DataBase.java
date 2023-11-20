@@ -1,24 +1,24 @@
-package cosc311p2;
+package cosc311p3;
 
 import java.util.Scanner;
 
 //Kevin Diehr
 //E01019091        
 //COSC 311 - Fall 2023
-//Program #2
+//Program #3 - Version 1
 
 public class DataBase 
 {
 	private DataBaseArray myDB;
-	DoublyLinkedList ID, First, Last;
+	private BinarySearchTree ID, First, Last;
 
 	public DataBase() 
 	{
 
 		myDB = new DataBaseArray(100);
-		ID = new DoublyLinkedList();
-		First = new DoublyLinkedList();
-		Last = new DoublyLinkedList();
+		ID = new BinarySearchTree(this);
+		First = new BinarySearchTree(this);
+		Last = new BinarySearchTree(this);
 	}
 
 	private int nextDBRec; // This gets used to track where in the database array, the current empty
@@ -101,14 +101,15 @@ public class DataBase
 		System.out.print("Enter the ID of the student you wish to remove: ");
 		input = findID.nextLine();
 		int where = findRecord(input, ID);
-
+		System.out.println("record located at where: " + where);
 		// Delete the found record
 		if (where != -1) 
 		{
 			System.out.println("Record with ID " + myDB.dataBaseRecArray[where] + " has been deleted.");
-			ID.deleteIndexRecord(where);
 			First.deleteIndexRecord(where);
 			Last.deleteIndexRecord(where);
+			ID.deleteIndexRecord(where);
+
 
 		} else {
 			System.out.println("Record cannot be found.");
@@ -117,9 +118,9 @@ public class DataBase
 	}
 
 	// Feed this the ID linked list, and the key location
-	public int findRecord(String key, DoublyLinkedList linkedList) 
+	public int findRecord(String key, BinarySearchTree field) 
 	{
-		int where = linkedList.findNode(key);
+		int where = field.findNode(key);
 		return where;
 	}
 
@@ -144,34 +145,25 @@ public class DataBase
 
 	}
 
-	// Generalized print method for all lists
-	public void listByField(DoublyLinkedList field, boolean ascending) 
-	{
-		if (field == null) 
-		{
-			throw new IllegalArgumentException("Invalid field name");
-		}
+	
+	public void listByField(BinarySearchTree field, boolean ascending) {
+	    if (field == null) {
+	        throw new IllegalArgumentException("Invalid field name");
+	    }
 
-		if (ascending) // Print list in forwards order!!
-		{ 
-			Node current = field.getHead();
-			while (current != null) 
-			{
-				int where = current.data.getWhere();
-				System.out.println(myDB.dataBaseRecArray[where].toString());
-				current = current.next; // Move to the next node
-			}
-		} else 
-		{ // Print list in reverse order!!
-			Node current = field.getTail();
-			while (current != null) 
-			{
-				int where = current.data.getWhere();
-				System.out.println(myDB.dataBaseRecArray[where].toString());
-				current = current.prev; // Move to the previous node
-			}
-		}
+	    
+    
+	    if (ascending) { // Print list in forwards order!!
+	    	field.inOrderTraversal();
+	    } else { // Print list in reverse order!!
+	    	field.reverseOrderTraversal();
+	    }
+
 	}
+	public void printRecord(int where) {
+		System.out.println(myDB.dataBaseRecArray[where]);
+	}
+
 
 	// Modular list methods
 	public void ListByIDAscending() 

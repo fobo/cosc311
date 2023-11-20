@@ -43,6 +43,13 @@ public class DoublyLinkedList
 	    return -1;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
 	public void insert(IndexRecord indexRecord) 
 	{
 	    Node newNode = new Node(indexRecord);
@@ -91,6 +98,10 @@ public class DoublyLinkedList
 	}
 
 
+	
+	
+	
+	
 	public Node deleteIndexRecord(int where) 
 	{
 	    // Check for an empty list
@@ -140,6 +151,9 @@ public class DoublyLinkedList
 	}
 
 	
+	
+	
+	
 	//Iterators
 	public Node iteratorInitHead() 
 	{
@@ -188,6 +202,10 @@ public class DoublyLinkedList
         return null;
     }
 
+    
+    
+    
+    
     // Get the previous node relative to the current node
     public Node getPrev(Node currentNode)
     {

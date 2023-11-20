@@ -1,9 +1,9 @@
-package cosc311p2;
+package cosc311p3;
 
 //Kevin Diehr
 //E01019091        
 //COSC 311 - Fall 2023
-//Program #2
+//Program #3 - Version 1
 
 
 //This is the "data" object that will sit inside of a specific node.
