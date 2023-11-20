@@ -14,23 +14,6 @@ public class BinarySearchTree {
         this.database = database; //passing reference to itself so we can use parent methods (like print)
     }
 
-//    public void insert(IndexRecord data) {
-//        root = insertRecursive(root, data);
-//    }
-//
-//    private Node insertRecursive(Node root, IndexRecord data) {
-//        if (root == null) {
-//            return new Node(data);
-//        }
-//
-//        if (data.getKey().compareTo(root.data.getKey()) < 0) {
-//            root.left = insertRecursive(root.left, data);
-//        } else if (data.getKey().compareTo(root.data.getKey()) > 0) {
-//            root.right = insertRecursive(root.right, data);
-//        }
-//
-//        return root;
-//    }
     
     public void insert(IndexRecord data) {
         root = insertRecursive(root, data);
@@ -74,25 +57,21 @@ public class BinarySearchTree {
     }
     
     
-    public void deleteIndexRecord(int where) {
-        root = deleteIndexRecordRecursive(root, where);
-        System.out.println("deleteIndexRecord " + where);
+    public void deleteIndexRecord(int where, String key) {
+        root = deleteIndexRecordRecursive(root, where, key);
     }
 
-    private Node deleteIndexRecordRecursive(Node root, int where) {
+    private Node deleteIndexRecordRecursive(Node root, int where, String key) {
         // Base case: If the tree is empty
 
         if (root == null) {
-        	System.out.println("Node is empty");
             return null;
         }
-    	System.out.println("root where: " + root.data.getWhere());
-    	System.out.println("Target where: " + where);
         // Recursively search for the node to be deleted
-        if (where < root.data.getWhere()) {
-            root.left = deleteIndexRecordRecursive(root.left, where);
-        } else if (where > root.data.getWhere()) {
-            root.right = deleteIndexRecordRecursive(root.right, where);
+        if (key.compareTo(root.data.getKey()) <= 0 && where != root.data.getWhere()) {
+            root.left = deleteIndexRecordRecursive(root.left, where, key);
+        } else if (key.compareTo(root.data.getKey()) > 0) {
+            root.right = deleteIndexRecordRecursive(root.right, where, key);
         } else {
             // Node with only one child or no child
             if (root.left == null) {
@@ -101,12 +80,13 @@ public class BinarySearchTree {
                 return root.left;
             }
 
+           
             // Node with two children: Get the inorder successor (smallest
             // in the right subtree)
             root.data = minValue(root.right);
 
             // Delete the inorder successor
-            root.right = deleteIndexRecordRecursive(root.right, root.data.getWhere());
+            root.right = deleteIndexRecordRecursive(root.right, root.data.getWhere(), root.data.getKey());
         }
 
         return root;
@@ -129,10 +109,8 @@ public class BinarySearchTree {
 
     private void inOrderTraversalRecursive(Node root) {
         if (root != null) {
-            inOrderTraversalRecursive(root.left);
-            
+            inOrderTraversalRecursive(root.left);            
             database.printRecord(root.data.getWhere());
-            //root.displayNode(); 
             inOrderTraversalRecursive(root.right);
         }
     }

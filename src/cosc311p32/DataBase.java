@@ -1,11 +1,11 @@
-package cosc311p3;
+package cosc311p32;
 
 import java.util.Scanner;
 
 //Kevin Diehr
 //E01019091        
 //COSC 311 - Fall 2023
-//Program #3 - Version 1
+//Program #3 - Version 2
 
 public class DataBase 
 {
